@@ -1,20 +1,15 @@
-###################################################
-### chunk number 1: 
-###################################################
+
 library("Synth")
 
 rm(list = ls())
-#loading the data
 setwd("C:/Users/diego/Google Drive/Disasters")
 load("datasets/regions_1960_2001.rda")
 
 #reducings digits in gdp data
 base2$gdpcap <- base2$gdpcap/1000000
 
-###################################################
-### chunk number 3: 
-###################################################
- dataprep.out <-
+
+dataprep.out <-
               dataprep(foo = base2,
                        predictors = c("sec.agricultureper" , "sec.fishingper" , "sec.miningper" ,
                                       "sec.industryper" , "sec.energyper" , "sec.constructionper","sec.retailper", "sec.transportper","sec.othersper") ,
@@ -37,20 +32,14 @@ base2$gdpcap <- base2$gdpcap/1000000
 synth.out <- synth(data.prep.obj = dataprep.out,
                     method = "BFGS")
 	
-###################################################
-### chunk number 8: 
-###################################################
 gaps <- dataprep.out$Y1plot - (dataprep.out$Y0plot %*% synth.out$solution.w)
  
- synth.tables <- synth.tab(dataprep.res = dataprep.out,
+synth.tables <- synth.tab(dataprep.res = dataprep.out,
                            synth.res = synth.out
                            )
 	
 synth.tables$tab.w
- ###################################################
-#
-### chunk number 13: 
-###################################################
+
  path.plot(synth.res = synth.out,
            dataprep.res = dataprep.out,
            Ylab = "real per-capita GDP (millions 1996 CLP)",
@@ -61,10 +50,8 @@ synth.tables$tab.w
            )
 abline(v=1985, col = "red", lty = 2)
 
-###################################################
-### chunk number 14: 
-###################################################
- gaps.plot(synth.res = synth.out,
+
+gaps.plot(synth.res = synth.out,
            dataprep.res = dataprep.out,
            Ylab = "gap in real per-capita GDP (millions 1996 CLP)",
            Xlab = "year",
@@ -73,10 +60,6 @@ abline(v=1985, col = "red", lty = 2)
            )
 
 
-
-###################################################
-### chunk number 16:  Gaps Test
-###################################################
 store <- matrix(NA,length(1960:2001),13)
 colnames(store) <- unique(base2$regionname)
 
